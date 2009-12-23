@@ -13,8 +13,7 @@
  */
 $GLOBALS['autoload_paths'] = array(
 	BASE_PATH,
-	BASE_PATH.'/inc',
-	BASE_PATH.'/inc/pear',
+	BASE_PATH.'/inc'
 );
 
 /**
@@ -23,15 +22,6 @@ $GLOBALS['autoload_paths'] = array(
  * @var array
  */
 $GLOBALS['autoload_map'] = array();
-//$GLOBALS['autoload_map']['MySQLConnection']      = BASE_PATH.'/lib/common/Database.php';
-//$GLOBALS['autoload_map']['IRecordSet']           = BASE_PATH.'/lib/common/Database.php';
-//$GLOBALS['autoload_map']['MySQLRecordSet']       = BASE_PATH.'/lib/common/Database.php';
-//$GLOBALS['autoload_map']['ArrayRecordSet']       = BASE_PATH.'/lib/common/Database.php';
-//$GLOBALS['autoload_map']['Error']                = BASE_PATH.'/lib/common/Error.php';
-//$GLOBALS['autoload_map']['WorkXpress_Exception'] = BASE_PATH.'/lib/common/Exception.php';
-//$GLOBALS['autoload_map']['Item']                 = BASE_PATH.'/lib/wx/Item.php';
-//$GLOBALS['autoload_map']['ItemType']             = BASE_PATH.'/lib/wx/ItemType.php';
-//$GLOBALS['autoload_map']['FieldType']            = BASE_PATH.'/lib/wx/FieldType.php';
 
 
 /**
