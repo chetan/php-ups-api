@@ -107,6 +107,11 @@ class UpsAPI_RatesAndService extends UpsAPI {
     	'20' => 'Air Service Center',
     ); // end $pickup_codes
     
+    public static $pickup_day_codes = array(
+        '01' => 'Same Day',
+        '02' => 'Future Day'
+    );
+    
 	/**
 	 * Node name for the Monetary Value
 	 * 
@@ -259,7 +264,11 @@ class UpsAPI_RatesAndService extends UpsAPI {
 	public function getShipmentCharges() {
 		$rated_shipment = $this->xpath->query(
 			self::NODE_NAME_RATED_SHIPMENT, $this->root_node)->item(0);
-		
+        
+        if (is_null($rated_shipment)) {
+            return null;
+        }
+        
 		$return_value = array(
 			'currency_code' => $this->xpath->query(
 				'TotalCharges/CurrencyCode',
@@ -286,6 +295,10 @@ class UpsAPI_RatesAndService extends UpsAPI {
 	public function getShipmentWeight() {
 		$rated_shipment = $this->xpath->query(
 			self::NODE_NAME_RATED_SHIPMENT, $this->root_node)->item(0);
+		
+		if (is_null($rated_shipment)) {
+            return null;
+        }
 		
 		$return_value = array(
 			'weight' => $this->xpath->query(
@@ -635,6 +648,23 @@ class UpsAPI_RatesAndService extends UpsAPI {
 	protected function getRootNodeName() {
 		return self::NODE_NAME_ROOT_NODE;
 	} // end function getRootNodeName()
+	
+	public static function pickupCode($code) {
+	    // TODO: validate $code
+	    return array(
+    		'code' => $code,
+    		'description' => self::$pickup_codes[$code],
+    	);
+	}
+	
+	public static function packagingCode($code) {
+	    // TODO:: validate $code
+	    return array(
+			'code' => $code,
+			'description' => self::$packaging_codes[$code],
+		);
+	}
+	
 } // end class UpsAPI_RatesAndService
 
 ?>
