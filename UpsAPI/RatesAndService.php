@@ -471,17 +471,22 @@ class UpsAPI_RatesAndService extends UpsAPI {
 			new DOMElement('OnCallAir'));
 		$schedule = $on_call_air->appendChild(new DOMElement('Schedule'));
 		
-		// check to see if this is a satruday pickup
-		if (isset($this->shipment['saturday']['pickup']) &&
-			$this->shipment['saturday']['pickup'] !== false) {
-			$service_options->appendChild(new DOMElement('SaturdayPickup'));
-		} // end if this is a saturday pickup
+		// saturday options are optional (default=false)
+		if (isset($this->shipment['saturday'])) {
+		    		
+    		// check to see if this is a satruday pickup
+    		if (isset($this->shipment['saturday']['pickup']) &&
+    			$this->shipment['saturday']['pickup'] !== false) {
+    			$service_options->appendChild(new DOMElement('SaturdayPickup'));
+    		} // end if this is a saturday pickup
 		
-		// check to see if this is a saturday delivery
-		if (isset($this->shipment['saturday']['delivery']) &&
-			$this->shipment['saturday']['delivery'] !== false) {
-			$service_options->appendChild(new DOMElement('SaturdayDelivery'));
-		} // end if this is a saturday delivery
+    		// check to see if this is a saturday delivery
+    		if (isset($this->shipment['saturday']['delivery']) &&
+    			$this->shipment['saturday']['delivery'] !== false) {
+    			$service_options->appendChild(new DOMElement('SaturdayDelivery'));
+    		} // end if this is a saturday delivery
+    		
+		}
 		
 		// check to see if we have a pickup day
 		if (isset($this->shipment['pickup_day'])) {
