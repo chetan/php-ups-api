@@ -665,6 +665,15 @@ class UpsAPI_RatesAndService extends UpsAPI {
 		);
 	}
 	
+	public static function package($weight, $code = "02", $desc = "Package from customer", $units = "LBS") {
+	    return array(
+			'packaging'     => UpsAPI_RatesAndService::packagingCode($code),
+			'description'   => $desc,
+			'units'         => $units,
+			'weight'        => $weight
+		);
+	}
+
 } // end class UpsAPI_RatesAndService
 
 ?>
