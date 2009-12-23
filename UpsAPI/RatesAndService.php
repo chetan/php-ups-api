@@ -38,6 +38,75 @@
  * @package php_ups_api
  */
 class UpsAPI_RatesAndService extends UpsAPI {
+    
+    /**
+     * Packaging codes
+     */
+    public static $packaging_codes = array(
+    	'00' => 'UNKNOWN',
+    	'01' => 'UPS Letter',
+    	'02' => 'Package',
+    	'03' => 'Tube',
+    	'04' => 'Pak',
+    	'21' => 'Express Box',
+    	'24' => '25KG Box',
+    	'25' => '10KG Box',
+    	'30' => 'Pallet',
+    	'2a' => 'Small Express Box',
+    	'2b' => 'Medium Express Box',
+    	'2c' => 'Large Express Box',
+    ); // end $packaging_codes
+
+    /**
+     * Service type codes
+     */
+    public static $service_codes = array(
+    	'01'    => 'UPS Express',
+    	'02'    => 'UPS Expedited',
+    	'03'    => 'UPS Ground',
+    	'07'    => 'UPS Express',
+    	'08'    => 'UPS Expedited',
+    	'11'    => 'UPS Standard',
+    	'12'    => 'UPS Three-Day Select',
+    	'13'    => 'UPS Saver',
+    	'14'    => 'UPS Express Early A.M.',
+    	'54'    => 'UPS Worldwide Express Plus',
+    	'59'    => 'UPS Second Day Air A.M.',
+    	'65'    => 'UPS Saver',
+    	'82'    => 'UPS Today Standard',
+    	'83'    => 'UPS Today Dedicated Courrier',
+    	'84'    => 'UPS Today Intercity',
+    	'85'    => 'UPS Today Express',
+    	'86'    => 'UPS Today Express Saver',
+    	'308'   => 'UPS Freight LTL',
+    	'309'   => 'UPS Freight LTL Guaranteed',
+    	'310'   => 'UPS Freight LTL Urgent',
+    	'TDCB'  => 'Trade Direct Cross Border',
+    	'TDA'   => 'Trade Direct Air',
+    	'TDO'   => 'Trade Direct Ocean',
+    ); // end $service_codes
+
+    /**
+     * Codes for unites of measurement
+     */
+    public static $weight_um = array(
+    	'LBS' => 'Pounds',
+    	'KGS' => 'Kilograms',
+    ); // end $weight_um
+    
+    /**
+     * Pickup type codes
+     */
+    public static $pickup_codes = array(
+    	'01' => 'Daily Pickup',
+    	'03' => 'Customer Counter',
+    	'06' => 'One Time Pickup',
+    	'07' => 'On Call Air',
+    	'11' => 'Suggested Retail Rates',
+    	'19' => 'Letter Center',
+    	'20' => 'Air Service Center',
+    ); // end $pickup_codes
+    
 	/**
 	 * Node name for the Monetary Value
 	 * 
