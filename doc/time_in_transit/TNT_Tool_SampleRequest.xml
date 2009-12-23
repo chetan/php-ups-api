@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<AccessRequest xml:lang="en-US">
+ <AccessLicenseNumber>Your_License</AccessLicenseNumber>
+  <UserId>Your_ID</UserId>
+  <Password>Your_Password</Password>
+</AccessRequest>
+<?xml version="1.0"?>
+<TimeInTransitRequest xml:lang="en-US">
+  <Request>
+    <TransactionReference>
+      <CustomerContext>Sample test</CustomerContext>
+      <XpciVersion>1.0002</XpciVersion>
+    </TransactionReference>
+    <RequestAction>TimeInTransit</RequestAction>
+  </Request>
+  <TransitFrom>
+    <AddressArtifactFormat>
+      <Consignee>Consignee</Consignee>
+      <StreetNumberLow>655</StreetNumberLow>
+      <StreetName>Street Name</StreetName>
+      <StreetType>Road</StreetType>
+      <PoliticalDivision2>Prague</PoliticalDivision2>
+      <PoliticalDivision1></PoliticalDivision1>
+      <PostcodePrimaryLow>186 00</PostcodePrimaryLow>
+      <PostcodeExtendedLow></PostcodeExtendedLow>
+      <CountryCode>CZ</CountryCode>
+    </AddressArtifactFormat>
+  </TransitFrom>
+  <TransitTo>
+    <AddressArtifactFormat>
+      <Consignee>Consignee</Consignee>
+      <StreetNumberLow>655</StreetNumberLow>
+      <StreetName>Street Name</StreetName>
+      <StreetType>Road</StreetType>
+      <PoliticalDivision2>Roswell</PoliticalDivision2>
+      <PoliticalDivision1>GA</PoliticalDivision1>
+      <PostcodePrimaryLow>30076</PostcodePrimaryLow>
+      <PostcodeExtendedLow>4151</PostcodeExtendedLow>
+      <CountryCode>US</CountryCode>
+    </AddressArtifactFormat>
+  </TransitTo>
+    <PickupDate>20071122</PickupDate>
+  <MaximumListSize>5</MaximumListSize>
+  <InvoiceLineTotal>
+    <CurrencyCode>USD</CurrencyCode>
+    <MonetaryValue>500</MonetaryValue>
+  </InvoiceLineTotal>
+  <ShipmentWeight>
+    <UnitOfMeasurement>
+      <Code>KGS</Code>
+      <Description>Kilograms</Description>
+    </UnitOfMeasurement>
+    <Weight>2</Weight>
+  </ShipmentWeight>
+</TimeInTransitRequest>

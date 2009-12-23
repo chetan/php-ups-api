@@ -1,0 +1,5 @@
+# executed from base directory
+phpdoc -f *.php -d WorkXpress -t docs/phpdoc -ed examples/ \ 
+    -ti "Services_WorkXpress Documentation" \ 
+    -dn 'Services_WorkXpress' -dc 'Services_WorkXpress'
+

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Lookup Data Mass Example</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+						<h1>Lookup Data Mass Example</h1>
+<div class="listing">
+<div class="src-code"><ol><li><div class="src-line"><span class="src-php">&lt;?php</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><a href="http://www.php.net/error_reporting">error_reporting</a><span class="src-sym">(</span><span class="src-id">E_ALL</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><a href="http://www.php.net/ini_set">ini_set</a><span class="src-sym">(</span><span class="src-str">'display_errors'</span><span class="src-sym">,&nbsp;</span><span class="src-str">'On'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-inc">require_once&nbsp;</span><span class="src-str">'config.php'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-doc">/**&nbsp;initialize&nbsp;and&nbsp;configure&nbsp;Services_WorkXpress&nbsp;objects&nbsp;**/</span></div></li>
+<li><div class="src-line"><span class="src-comm">//&nbsp;get&nbsp;the&nbsp;configuration&nbsp;settings</span></div></li>
+<li><div class="src-line"><span class="src-var">$app_role&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-id"><a href="../Services_WorkXpress/Services_WorkXpress.html">Services_WorkXpress</a></span><span class="src-sym">::</span><span class="src-id">APPLICATION_ROLE_OCD</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-var">$api_version&nbsp;</span>=&nbsp;<span class="src-var">$services_workxpress_config</span><span class="src-sym">[</span><span class="src-str">'api_version'</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-var">$auth_key&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$services_workxpress_config</span><span class="src-sym">[</span><span class="src-var">$app_role</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'auth_key'</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-var">$remote_host&nbsp;</span>=&nbsp;<span class="src-var">$services_workxpress_config</span><span class="src-sym">[</span><span class="src-var">$app_role</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'remote_host'</span><span class="src-sym">]</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-comm">//&nbsp;load&nbsp;the&nbsp;Services_WorkXpress&nbsp;object</span></div></li>
+<li><div class="src-line"><span class="src-var">$workxpress&nbsp;&nbsp;</span>=&nbsp;<span class="src-key">new&nbsp;</span><span class="src-id"><a href="../Services_WorkXpress/Services_WorkXpress.html">Services_WorkXpress</a></span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-var">$workxpress</span><span class="src-sym">-&gt;</span><span class="src-id">setAPIVersion</span><span class="src-sym">(</span><span class="src-var">$services_workxpress_config</span><span class="src-sym">[</span><span class="src-str">'api_version'</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-var">$workxpress</span><span class="src-sym">-&gt;</span><span class="src-id">setAuthKey</span><span class="src-sym">(</span><span class="src-var">$services_workxpress_config</span><span class="src-sym">[</span><span class="src-var">$app_role</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'auth_key'</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-var">$workxpress</span><span class="src-sym">-&gt;</span><span class="src-id">setRemoteHost</span><span class="src-sym">(</span><span class="src-var">$services_workxpress_config</span><span class="src-sym">[</span><span class="src-var">$app_role</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-str">'remote_host'</span><span class="src-sym">]</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-comm">//&nbsp;load&nbsp;the&nbsp;request&nbsp;object</span></div></li>
+<li><div class="src-line"><span class="src-var">$request&nbsp;</span>=&nbsp;<span class="src-var">$workxpress</span><span class="src-sym">-&gt;</span><span class="src-id">loadRequest</span><span class="src-sym">(</span><span class="src-str">'LookupData'</span><span class="src-sym">,</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id"><a href="../Services_WorkXpress/Services_WorkXpress.html">Services_WorkXpress</a></span><span class="src-sym">::</span><span class="src-id">REQUEST_TYPE_MASS</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-doc">/**&nbsp;build&nbsp;the&nbsp;request&nbsp;**/</span></div></li>
+<li><div class="src-line"><span class="src-comm">//&nbsp;add&nbsp;items&nbsp;to&nbsp;the&nbsp;request</span></div></li>
+<li><div class="src-line"><span class="src-var">$request</span><span class="src-sym">-&gt;</span><a href="../Services_WorkXpress/Services_WorkXpress_Request_LookupDataMass.html#methodaddItem">addItem</a><span class="src-sym">(</span><span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-var">$request</span><span class="src-sym">-&gt;</span><a href="../Services_WorkXpress/Services_WorkXpress_Request_LookupDataMass.html#methodaddItem">addItem</a><span class="src-sym">(</span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-comm">//&nbsp;add&nbsp;fields&nbsp;to&nbsp;the&nbsp;request</span></div></li>
+<li><div class="src-line"><span class="src-var">$request</span><span class="src-sym">-&gt;</span><a href="../Services_WorkXpress/Services_WorkXpress_Request_LookupDataMass.html#methodaddField">addField</a><span class="src-sym">(</span><span class="src-num">3100</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-var">$request</span><span class="src-sym">-&gt;</span><a href="../Services_WorkXpress/Services_WorkXpress_Request_LookupDataMass.html#methodaddField">addField</a><span class="src-sym">(</span><span class="src-num">3101</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-var">$request</span><span class="src-sym">-&gt;</span><a href="../Services_WorkXpress/Services_WorkXpress_Request_LookupDataMass.html#methodaddField">addField</a><span class="src-sym">(</span><span class="src-num">102</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-comm">//&nbsp;add&nbsp;relations&nbsp;to&nbsp;the&nbsp;request</span></div></li>
+<li><div class="src-line"><span class="src-var">$request</span><span class="src-sym">-&gt;</span><a href="../Services_WorkXpress/Services_WorkXpress_Request_LookupDataMass.html#methodaddRelation">addRelation</a><span class="src-sym">(</span><span class="src-num">134</span><span class="src-sym">,&nbsp;</span><span class="src-str">'base'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-doc">/**&nbsp;make&nbsp;the&nbsp;API&nbsp;call&nbsp;**/</span></div></li>
+<li><div class="src-line">try</div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;make&nbsp;the&nbsp;call&nbsp;and&nbsp;get&nbsp;the&nbsp;data&nbsp;array</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$response&nbsp;</span>=&nbsp;<span class="src-var">$request</span><span class="src-sym">-&gt;</span><a href="../Services_WorkXpress/Services_WorkXpress_Request.html#methodcall">call</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-var">$items&nbsp;&nbsp;&nbsp;&nbsp;</span>=&nbsp;<span class="src-var">$response</span><span class="src-sym">-&gt;</span><span class="src-id">getDataArray</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;</div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;show&nbsp;the&nbsp;results</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-str">'&lt;pre&gt;'</span>.<a href="http://www.php.net/print_r">print_r</a><span class="src-sym">(</span><span class="src-var">$items</span><span class="src-sym">,&nbsp;</span><span class="src-id">true</span><span class="src-sym">)</span>.<span class="src-str">'&lt;/pre&gt;'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-sym">}&nbsp;</span><span class="src-comm">//&nbsp;end&nbsp;try</span></div></li>
+<li><div class="src-line">catch&nbsp;<span class="src-sym">(</span><span class="src-id"><a href="../Services_WorkXpress/Services_WorkXpress_Exception.html">Services_WorkXpress_Exception</a>&nbsp;</span><span class="src-var">$e</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;<span class="src-str">'&lt;h1&gt;Error&lt;/h1&gt;&lt;pre&gt;'</span>.<span class="src-var">$e</span><span class="src-sym">-&gt;</span><span class="src-id">getMessage</span><span class="src-sym">(</span><span class="src-sym">)</span>.<span class="src-str">'&lt;/pre&gt;'</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line"><span class="src-sym">}&nbsp;</span><span class="src-comm">//&nbsp;end&nbsp;catch&nbsp;Services_WorkXpress_Exception</span></div></li>
+<li><div class="src-line">&nbsp;</div></li>
+<li><div class="src-line"><span class="src-php">?&gt;</span></div></li>
+</ol></div>
+</div>
+	<p class="notes" id="credit">
+		Documentation generated on Wed, 22 Nov 2006 11:54:00 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.3.1</a>
+	</p>
+	</body>
+</html>
