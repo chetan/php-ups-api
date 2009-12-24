@@ -2,6 +2,7 @@
 require_once dirname(__FILE__).'/../UpsAPI.php';
 require_once dirname(__FILE__).'/../UpsAPI/Client.php';
 require_once dirname(__FILE__).'/../UpsAPI/USAddressValidation.php';
+require_once "client_config.inc.php";
 
 echo '<img src="ups_logo.gif" /><br />';
 
@@ -13,18 +14,17 @@ if (!empty($_POST['submit']))
 	$address['zip_code'] = $_POST['zip_code'];
 	
 	$validation = new UpsAPI_USAddressValidation($address);
-	$xml = $validation->buildRequest();
 	
 	// check the output type
 	if ($_POST['output'] == 'array')
 	{
-		$response = $validation->sendRequest($xml, false);
+		$response = $client->sendRequest($validation, false);
 		echo 'Response Output:<br />';
 		var_dump($response);
 	} // end if the output type is an array
 	else
 	{
-		$response = $validation->sendRequest($xml, true);
+		$response = $client->sendRequest($rate, true);
 		echo 'Response Output:<br />';
 		echo '<pre>'.htmlentities($response).'</pre>';
 	} // end else the output type is XML

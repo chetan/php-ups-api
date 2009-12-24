@@ -2,6 +2,7 @@
 require_once dirname(__FILE__).'/../UpsAPI.php';
 require_once dirname(__FILE__).'/../UpsAPI/Client.php';
 require_once dirname(__FILE__).'/../UpsAPI/TimeInTransit.php';
+require_once "client_config.inc.php";
 
 echo '<img src="ups_logo.gif" /><br />';
 
@@ -46,18 +47,17 @@ if (!empty($_POST['submit']))
 	
 	$time_in_transit = new UpsAPI_TimeInTransit($origin, $destination,
 		$data);
-	$xml = $time_in_transit->buildRequest();
 	
 	// check the output type
 	if ($_POST['output'] == 'array')
 	{
-		$response = $time_in_transit->sendRequest($xml, false);
+		$response = $client->sendRequest($time_in_transit, false);
 		echo 'Response Output:<br />';
 		var_dump($response);
 	} // end if the output type is an array
 	else
 	{
-		$response = $time_in_transit->sendRequest($xml, true);
+		$response = $client->sendRequest($time_in_transit, true);
 		echo 'Response Output:<br />';
 		echo '<pre>'.htmlentities($response).'</pre>';
 	} // end else the output type is XML

@@ -23,6 +23,7 @@
 require_once dirname(__FILE__).'/../UpsAPI.php';
 require_once dirname(__FILE__).'/../UpsAPI/Client.php';
 require_once dirname(__FILE__).'/../UpsAPI/RatesAndService.php';
+require_once "client_config.inc.php";
 
 $pickup_codes = array(
 	'01' => 'Daily Pickup',
@@ -107,18 +108,17 @@ if (!empty($_POST['submit']))
 	
 	$rate = new UpsAPI_RatesAndService($shipment, $shipper, $ship_from,
 		$destination);
-	$xml = $rate->buildRequest();
 	
 	// check the output type
 	if ($_POST['output'] == 'array')
 	{
-		$response = $rate->sendRequest($xml, false);
+		$response = $client->sendRequest($rate, false);
 		echo 'Response Output:<br />';
 		var_dump($response);
 	} // end if the output type is an array
 	else
 	{
-		$response = $rate->sendRequest($xml, true);
+		$response = $client->sendRequest($rate, true);
 		echo 'Response Output:<br />';
 		echo '<pre>'.htmlentities($response).'</pre>';
 	} // end else the output type is XML

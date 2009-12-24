@@ -2,6 +2,7 @@
 require_once dirname(__FILE__).'/../UpsAPI.php';
 require_once dirname(__FILE__).'/../UpsAPI/Client.php';
 require_once dirname(__FILE__).'/../UpsAPI/Tracking.php';
+require_once "client_config.inc.php";
 
 echo '<img src="ups_logo.gif" /><br />';
 
@@ -23,18 +24,17 @@ if (!empty($_POST['submit']))
 	} // end if we have inquiry data
 	
 	$tracking = new UpsAPI_Tracking($tracking_number, $inquiry);
-	$xml = $tracking->buildRequest();
 	
 	// check the output type
 	if ($_POST['output'] == 'array')
 	{
-		$response = $tracking->sendRequest($xml, false);
+		$response = $client->sendRequest($tracking, false);
 		echo 'Response Output:<br />';
 		var_dump($response);
 	} // end if the output type is an array
 	else
 	{
-		$response = $tracking->sendRequest($xml, true);
+		$response = $client->sendRequest($tracking, true);
 		echo 'Response Output:<br />';
 		echo '<pre>'.htmlentities($response).'</pre>';
 	} // end else the output type is XML
