@@ -117,6 +117,9 @@ class UpsAPI_Client {
 	 */
 	public function sendRequest($api, $return_raw_xml = false) {
 		require_once 'XML/Unserializer.php';
+
+		$url = $this->server . $api::ENDPOINT;
+		$xml_request = $this->buildAccessRequestXml() . $api->buildRequest();
 		
 		// build an array of headers to use for our request
 		$headers = array(
@@ -125,12 +128,6 @@ class UpsAPI_Client {
 			'User-Agent: PHP-SOAP-CURL',
 			'Content-Type: text/xml; charset=utf-8',
 		); // end $headers
-		
-		$xml_request = $this->buildAccessRequestXml() . $api->buildRequest();
-		print $xml_request;
-		
-		$url = $this->server . $api::ENDPOINT;
-		print "$url\n";
 		
 		// setup the curl resource
 		$ch = curl_init();
@@ -141,7 +138,6 @@ class UpsAPI_Client {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$response = curl_exec($ch);
-		print $response;
 		
 		// TODO: remove array creation after switching over to xpath
 		// create an array from the raw XML data
