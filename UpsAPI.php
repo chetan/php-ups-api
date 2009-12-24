@@ -31,20 +31,16 @@
  * @author James I. Armes <jamesiarmes@gmail.com>
  * @package php_ups_api
  */
- 
-/**
- * Include the configuration file
- */
-require_once 'inc/config.php';
 
 /**
- * Parent class for the UpsAPI
+ * Parent class for the UpsAPI requests
  * 
  * @author James I. Armes <jamesiarmes@gmail.com>
  * @package php_ups_api
  */
 abstract class UpsAPI {
-	/**
+
+    /**
 	 * Status code for a failed request
 	 * 
 	 * @var integer
@@ -57,30 +53,6 @@ abstract class UpsAPI {
 	 * @var integer
 	 */
 	const RESPONSE_STATUS_CODE_PASS = 1;
-	
-	/**
-	 * Access key provided by UPS
-	 * 
-	 * @access protected
-	 * @var string
-	 */
-	protected $access_key;
-	
-	/**
-	 * Developer key provided by UPS
-	 * 
-	 * @access protected
-	 * @var string
-	 */
-	protected $developer_key;
-	
-	/**
-	 * Password used to access UPS Systems
-	 * 
-	 * @access protected
-	 * @var string
-	 */
-	protected $password;
 	
 	/**
 	 * Response from the server as XML
@@ -107,22 +79,6 @@ abstract class UpsAPI {
 	protected $root_node;
 	
 	/**
-	 * UPS Server to send Request to
-	 * 
-	 * @access protected
-	 * @var string
-	 */
-	protected $server;
-	
-	/**
-	 * Username used to access UPS Systems
-	 * 
-	 * @access protected
-	 * @var string
-	 */
-	protected $username;
-	
-	/**
 	 * xpath object for the response XML
 	 * 
 	 * @access protected
@@ -136,15 +92,7 @@ abstract class UpsAPI {
 	 * @access public
 	 */
 	public function __construct() {
-		/** Set the Keys on the Object **/
-		$this->access_key = $GLOBALS['ups_api']['access_key'];
-		$this->developer_key = $GLOBALS['ups_api']['developer_key'];
-		
-		
-		/** Set the username and password on the Object **/
-		$this->password = $GLOBALS['ups_api']['password'];
-		$this->username = $GLOBALS['ups_api']['username'];
-	} // end funciton __construct()
+	} // end function __construct()
 	
 	/**
 	 * Builds the XML used to make the request
@@ -157,21 +105,7 @@ abstract class UpsAPI {
 	 * @return string $return_value request XML
 	 */
 	public function buildRequest($customer_context = null) {
-		// create the access request element
-		$access_dom = new DOMDocument('1.0');
-		$access_element = $access_dom->appendChild(
-			new DOMElement('AccessRequest'));
-		$access_element->setAttributeNode(new DOMAttr('xml:lang', 'en-US'));
-		
-		// create the child elements
-		$access_element->appendChild(
-			new DOMElement('AccessLicenseNumber', $this->access_key));
-		$access_element->appendChild(
-			new DOMElement('UserId', $this->username));
-		$access_element->appendChild(
-			new DOMElement('Password', $this->password));
-		
-		return $access_dom->saveXML();
+        return "";
 	} // end function buildRequest()
 	
 	/**
@@ -217,58 +151,12 @@ abstract class UpsAPI {
 		return false;
 	} // end function isError
 	
-	/**
-	 * Send a request to the UPS Server using xmlrpc
-	 * 
-	 * @access public
-	 * @param string $request_xml XML request from the child objects
-	 * buildRequest() method
-	 * @param boool $return_raw_xml whether or not to return the raw XML from
-	 * the request
-	 * 
-	 * @todo remove array creation after switching over to xpath
-	 */
-	public function sendRequest($request_xml, $return_raw_xml = false) {
-		require_once 'XML/Unserializer.php';
-		
-		// build an array of headers to use for our request
-		$headers = array(
-			'Method: POST',
-			'Connection: Keep-Alive',
-			'User-Agent: PHP-SOAP-CURL',
-			'Content-Type: text/xml; charset=utf-8',
-		); // end $headers
-		
-		// setup the curl resource
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $this->server);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $request_xml);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$response = curl_exec($ch);
-		
-		// TODO: remove array creation after switching over to xpath
-		// create an array from the raw XML data
-		$unserializer = new XML_Unserializer(array('returnResult' => true));
-		$this->response_array = $unserializer->unserialize($response);
-		
-		// build the dom objects
-		$this->response = new DOMDocument();
-		$this->response->loadXML($response);
-		$this->xpath = new DOMXPath($this->response);
-		$this->root_node = $this->xpath->query(
-			'/'.$this->getRootNodeName())->item(0);
-		
-		// check if we should return the raw XML data
-		if ($return_raw_xml) {
-			return $response;
-		} // end if we should return the raw XML
-		
-		// return the response as an array
-		return $this->response_array;
-	} // end function sendRequest()
+	public function setResponse(&$response, &$response_array, &$xpath, &$root_node) {
+	    $this->response = $response;
+	    $this->response_array = $response_array;
+	    $this->xpath = $xpath;
+	    $this->root_node = $root_node;
+	}
 	
 	/**
 	 * Builds the Request element
@@ -332,5 +220,5 @@ abstract class UpsAPI {
 	 * 
 	 * @todo remove after phps self scope has been fixed
 	 */
-	protected abstract function getRootNodeName();
+	public abstract function getRootNodeName();
 } // end class UpsAPI

@@ -38,6 +38,9 @@
  * @package php_ups_api
  */
 class UpsAPI_Tracking extends UpsAPI {
+    
+    const ENDPOINT = '/ups.app/xml/Track';
+    
 	/**
 	 * Node name for the root node
 	 * 
@@ -72,7 +75,6 @@ class UpsAPI_Tracking extends UpsAPI {
 		parent::__construct();
 		
 		// set object properties
-		$this->server = $GLOBALS['ups_api']['server'].'/ups.app/xml/Track';
 		$this->tracking_number = $tracking_number;
 		$this->inquiry_array = $inquiry;
 	} // end function __construct()
@@ -270,7 +272,7 @@ class UpsAPI_Tracking extends UpsAPI {
 	 * 
 	 * @todo remove after phps self scope has been fixed
 	 */
-	protected function getRootNodeName() {
+	public function getRootNodeName() {
 		return self::NODE_NAME_ROOT_NODE;
 	} // end function getRootNodeName()
 } // end class UpsAPI_Tracking

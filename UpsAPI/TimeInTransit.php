@@ -38,6 +38,9 @@
  * @package php_ups_api
  */
 class UpsAPI_TimeInTransit extends UpsAPI {
+    
+    const ENDPOINT = '/ups.app/xml/TimeInTransit';
+    
 	/**
 	 * Node name for the root node
 	 * 
@@ -81,8 +84,6 @@ class UpsAPI_TimeInTransit extends UpsAPI {
 		parent::__construct();
 		
 		// set object properties
-		$this->server      =
-			$GLOBALS['ups_api']['server'].'/ups.app/xml/TimeInTransit';
 		$this->origin      = $origin;
 		$this->destination = $destination;
 		$this->data        = $data;
@@ -325,7 +326,7 @@ class UpsAPI_TimeInTransit extends UpsAPI {
 	 * 
 	 * @todo remove after phps self scope has been fixed
 	 */
-	protected function getRootNodeName() {
+	public function getRootNodeName() {
 		return self::NODE_NAME_ROOT_NODE;
 	} // end function getRootNodeName()
 } // end class UpsAPI_TimeInTransit

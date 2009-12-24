@@ -38,6 +38,9 @@
  * @package php_ups_api
  */
 class UpsAPI_USAddressValidation extends UpsAPI {
+    
+    const ENDPOINT = '/ups.app/xml/AV';
+    
 	/**
 	 * Node name for the root node
 	 * 
@@ -63,7 +66,6 @@ class UpsAPI_USAddressValidation extends UpsAPI {
 		parent::__construct();
 		
 		// set object properties
-		$this->server = $GLOBALS['ups_api']['server'].'/ups.app/xml/AV';
 		$this->address = $address;
 	} // end function __construct()
 	
@@ -304,7 +306,7 @@ class UpsAPI_USAddressValidation extends UpsAPI {
 	 * 
 	 * @todo remove after phps self scope has been fixed
 	 */
-	protected function getRootNodeName() {
+	public function getRootNodeName() {
 		return self::NODE_NAME_ROOT_NODE;
 	} // end function getRootNodeName()
 	

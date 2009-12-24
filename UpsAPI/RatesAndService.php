@@ -39,6 +39,8 @@
  */
 class UpsAPI_RatesAndService extends UpsAPI {
     
+    const ENDPOINT = '/ups.app/xml/Rate';
+    
     /**
      * Packaging codes
      */
@@ -193,7 +195,6 @@ class UpsAPI_RatesAndService extends UpsAPI {
 		parent::__construct();
 		
 		// set object properties
-		$this->server = $GLOBALS['ups_api']['server'].'/ups.app/xml/Rate';
 		$this->shipment = $shipment;
 		$this->shipper = $shipper;
 		$this->ship_from = $ship_from;
@@ -650,7 +651,7 @@ class UpsAPI_RatesAndService extends UpsAPI {
 	 * 
 	 * @todo remove after phps self scope has been fixed
 	 */
-	protected function getRootNodeName() {
+	public function getRootNodeName() {
 		return self::NODE_NAME_ROOT_NODE;
 	} // end function getRootNodeName()
 	
