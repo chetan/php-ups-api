@@ -20,10 +20,9 @@
 <body>
 	<h1><img src="ups_logo.gif" />Rates &amp; Service</h1>
 <?php
-/**
- * Include the configuration file
- */
-require_once dirname(__FILE__).'/../inc/config.php';
+require_once dirname(__FILE__).'/../UpsAPI.php';
+require_once dirname(__FILE__).'/../UpsAPI/Client.php';
+require_once dirname(__FILE__).'/../UpsAPI/RatesAndService.php';
 
 $pickup_codes = array(
 	'01' => 'Daily Pickup',

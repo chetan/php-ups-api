@@ -1,8 +1,7 @@
 <?php
-/**
- * Include the configuration file
- */
-require_once dirname(__FILE__).'/../inc/config.php';
+require_once dirname(__FILE__).'/../UpsAPI.php';
+require_once dirname(__FILE__).'/../UpsAPI/Client.php';
+require_once dirname(__FILE__).'/../UpsAPI/Tracking.php';
 
 echo '<img src="ups_logo.gif" /><br />';
 
